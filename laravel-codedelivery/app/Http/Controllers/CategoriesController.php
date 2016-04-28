@@ -2,12 +2,9 @@
 
 namespace CodeDelivery\Http\Controllers;
 
-use CodeDelivery\Repositories\CategoryRepository;
-use Illuminate\Http\Request;
-
 use CodeDelivery\Http\Requests;
-use CodeDelivery\Http\Controllers\Controller;
-use PhpParser\Node\Stmt\Return_;
+use CodeDelivery\Http\Requests\AdminCategoryRequest;
+use CodeDelivery\Repositories\CategoryRepository;
 
 class CategoriesController extends Controller
 {
@@ -21,7 +18,7 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories = $this->repository->paginate();
-        return view('admin.categories.index',compact('categories'));
+        return view('admin.categories.index', compact('categories'));
     }
 
     public function create()
@@ -29,10 +26,10 @@ class CategoriesController extends Controller
         return view('admin.categories.create');
     }
 
-    public function store( Request $request)
+    public function store(AdminCategoryRequest $request)
     {
         $data = $request->all();
         $this->repository->create($data);
-         return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.index');
     }
 }
