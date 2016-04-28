@@ -11,14 +11,28 @@ use PhpParser\Node\Stmt\Return_;
 
 class CategoriesController extends Controller
 {
-    public function index(CategoryRepository $repository)
+    private $repository;
+
+    public function __construct(CategoryRepository $repository)
     {
-        $categories = $repository->paginate(5);
+        $this->repository = $repository;
+    }
+
+    public function index()
+    {
+        $categories = $this->repository->paginate();
         return view('admin.categories.index',compact('categories'));
     }
 
     public function create()
     {
         return view('admin.categories.create');
+    }
+
+    public function store( Request $request)
+    {
+        $data = $request->all();
+        $this->repository->create($data);
+         return redirect()->route('admin.categories.index');
     }
 }
