@@ -16,4 +16,9 @@ class CategoriesController extends Controller
         $categories = $repository->paginate(5);
         return view('admin.categories.index',compact('categories'));
     }
+
+    public function create()
+    {
+        return view('admin.categories.create');
+    }
 }
