@@ -49,14 +49,7 @@ class OrderService
         $this->cupomRepository = $cupomRepository;
         $this->productRepository = $productRepository;
     }
-
-    public function update(array $data, $id)
-    {
-        $this->clientRepository->update($data, $id);
-        $userId = $this->clientRepository->find($id, ['user_id'])->user_id;
-        $this->userRepository->update($data['user'], $userId);
-    }
-
+    
     public function create(array $data)
     {
         DB::beginTransaction();
