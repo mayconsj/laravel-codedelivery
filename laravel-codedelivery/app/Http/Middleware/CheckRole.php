@@ -21,7 +21,7 @@ class CheckRole
             return redirect('/auth/login');
         }
 
-        if (!Auth::user()->role <> "admin") {
+        if (Auth::user()->role <> 'admin') {
             return redirect('/auth/login');
         }
 
