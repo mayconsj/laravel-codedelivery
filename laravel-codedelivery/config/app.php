@@ -142,6 +142,9 @@ return [
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         Bestmomo\Scafold\ScafoldServiceProvider::class,
 
+        LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider::class,
+        LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -202,6 +205,8 @@ return [
 
         'Html'      => Illuminate\Html\HtmlFacades::class,
         'Form'      => Illuminate\Html\FormFacade::class,
+
+        'Authorizer' => LucaDegasperi\OAuth2Server\Facades\Authorizer::class,
 
     ],
 
