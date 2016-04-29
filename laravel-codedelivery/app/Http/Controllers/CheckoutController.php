@@ -63,7 +63,7 @@ class CheckoutController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $clientId = $this->userRepository->find(Auth::user()->client->id);
+        $clientId = $this->userRepository->find(Auth::user()->id)->client->id;
         $data['client_id'] = $clientId;
         $this->service->create($data);
 
