@@ -2,16 +2,16 @@
 
 @section('content')
     <div class="container">
-        <h3>Criar nova Categoria</h3>
+        <h3>Novo Cupom</h3>
 
         @include('errors._check')
 
-        {!! Form::open(['route'=>'admin.categories.store', 'class'=>'form']) !!}
+        {!! Form::open(['route'=>'admin.cupoms.store', 'class'=>'form']) !!}
 
-        @include('admin.categories._form')
+        @include('admin.cupoms._form')
 
         <div class="form-group">
-            {!! Form::submit('Criar Categoria', ['class'=>'btn btn-primary']) !!}
+            {!! Form::submit('Criar Cupom', ['class'=>'btn btn-primary']) !!}
         </div>
 
         {!! Form::close() !!}
