@@ -64,5 +64,27 @@
             newRow.find('input').val(1);
             newRow.insertAfter(row);
         });
+
+        $(document.body).on('click','select', function () {
+            calculateTotal();
+        });
+
+        $(document.body).on('blur','input',function () {
+            calculateTotal();
+        })
+
+        function calculateTotal(){
+            var total = 0,
+                    trLen = $('table tbody tr').length,
+                    tr = null, price, qtd;
+
+            for (var i = 0; i < trLen; i++){
+                tr = $('table tbody tr').eq(i);
+                price = tr.find(':selected').data('price');
+                qtd = tr.find('input').val();
+                total += price * qtd;
+            }
+            $('#total').html(total);
+        }
     </script>
 @endsection
