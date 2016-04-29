@@ -30,7 +30,8 @@ $factory->define(CodeDelivery\Models\Client::class, function(Faker\Generator $fa
     return [
         'phone' => $faker->phoneNumber,
         'address' => $faker->address,
-        'city' => $faker->state,
+        'city' => $faker->city,
+        'state' => $faker->state,
         'zipcode' => $faker->postcode
     ];
 });

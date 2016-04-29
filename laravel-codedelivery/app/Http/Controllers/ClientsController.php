@@ -3,8 +3,8 @@
 namespace CodeDelivery\Http\Controllers;
 
 use CodeDelivery\Http\Requests;
-use CodeDelivery\Http\Requests\AdminCategoryRequest;
 use CodeDelivery\Repositories\ClientRepository;
+use CodeDelivery\Http\Requests\AdminClientRequest;
 
 class ClientsController extends Controller
 {
@@ -26,7 +26,7 @@ class ClientsController extends Controller
         return view('admin.clients.create');
     }
 
-    public function store(AdminCategoryRequest $request)
+    public function store(AdminClientRequest $request)
     {
         $data = $request->all();
         $this->repository->create($data);
@@ -39,7 +39,7 @@ class ClientsController extends Controller
         return view('admin.clients.edit', compact('client'));
     }
 
-    public function update(AdminCategoryRequest $request, $id)
+    public function update(AdminClientRequest $request, $id)
     {
         $data = $request->all();
         $this->repository->update($data, $id);
