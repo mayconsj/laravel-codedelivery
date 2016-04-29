@@ -4,14 +4,15 @@
     <div class="container">
         <h3>Produtos</h3>
         <br><br>
-        <a href="{{route('admin.products.create')}}" class="btn btn-default">Nov Produto</a>
+        <a href="{{route('admin.products.create')}}" class="btn btn-default">Novo Produto</a>
         <br><br>
         <table class="table table-bordered">
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Produto</th>
+                <th>Nome</th>
                 <th>Categoria</th>
+                <th>Preço</th>
                 <th>Ação</th>
             </tr>
             </thead>
@@ -22,6 +23,7 @@
                     <td>{{$product->id}}</td>
                     <td>{{$product->name}}</td>
                     <td>{{$product->category->name}}</td>
+                    <td>{{$product->price}}</td>
                     <td>
                         <a href="{{route('admin.products.edit', ['id'=>$product->id])}}" class="btn btn-default btn-sm">Editar</a>
                     </td>

@@ -4,15 +4,22 @@ namespace CodeDelivery\Http\Controllers;
 
 use CodeDelivery\Http\Requests;
 use CodeDelivery\Http\Requests\AdminCategoryRequest;
+use CodeDelivery\Http\Requests\AdminProductRequest;
+use CodeDelivery\Repositories\ProductRepository;
 use CodeDelivery\Repositories\CategoryRepository;
 
 class ProductsController extends Controller
 {
     private $repository;
+    /**
+     * @var CategoryRepository
+     */
+    private $categoryRepository;
 
-    public function __construct(CategoryRepository $repository)
+    public function __construct(ProductRepository $repository, CategoryRepository $categoryRepository)
     {
         $this->repository = $repository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     public function index()
@@ -23,27 +30,29 @@ class ProductsController extends Controller
 
     public function create()
     {
-        return view('admin.categories.create');
+        $categories = $this->categoryRepository->lists('name','id');
+        return view('admin.products.create', compact('categories'));
     }
 
-    public function store(AdminCategoryRequest $request)
+    public function store(AdminProductRequest $request)
     {
         $data = $request->all();
         $this->repository->create($data);
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.products.index');
     }
 
     public function edit($id)
     {
-        $category = $this->repository->find($id);
-        return view('admin.categories.edit', compact('category'));
+        $product = $this->repository->find($id);
+        $categories = $this->categoryRepository->lists('name','id');
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
-    public function update(AdminCategoryRequest $request, $id)
+    public function update(AdminProductRequest $request, $id)
     {
         $data = $request->all();
         $this->repository->update($data, $id);
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.products.index');
     }
 
 }
