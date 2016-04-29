@@ -20,7 +20,6 @@ class OrdersController extends Controller
 
     public function __construct(OrderRepository $repository)
     {
-
         $this->repository = $repository;
     }
 
@@ -28,5 +27,11 @@ class OrdersController extends Controller
     {
         $orders = $this->repository->paginate();
         return view('admin.orders.index', compact('orders'));
+    }
+
+    public function edit($id)
+    {
+        $order = $this->repository->find($id);
+        return view('admin.orders.edit', compact('order'));
     }
 }
