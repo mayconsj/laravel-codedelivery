@@ -37,5 +37,11 @@ class CheckoutController extends Controller
         return view('customer.order.create', compact('products'));
     }
 
+    public function store()
+    {
+        $products = $this->productRepository->lists('name','id');
+        return view('customer.order.create', compact('products'));
+    }
+
 
 }
