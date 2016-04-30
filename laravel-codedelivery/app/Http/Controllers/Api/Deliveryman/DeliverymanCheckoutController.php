@@ -8,6 +8,7 @@ use CodeDelivery\Repositories\OrderRepository;
 use CodeDelivery\Repositories\ProductRepository;
 use CodeDelivery\Repositories\UserRepository;
 use CodeDelivery\Services\OrderService;
+use Illuminate\Http\Request;
 use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 
 class DeliverymanCheckoutController extends Controller
@@ -57,6 +58,17 @@ class DeliverymanCheckoutController extends Controller
     {
         $idDeliveryman = Authorizer::getResourceOwnerId();
         return $this->repository->getByIdAndDeliveryman($id, $idDeliveryman);
+
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $idDeliveryman = Authorizer::getResourceOwnerId();
+        $order = $this->service->updateStatus($id, $idDeliveryman, $request->get('status'));
+        if($order){
+            return $order;
+        };
+        abort(400,"Order não encontrada");
 
     }
 
