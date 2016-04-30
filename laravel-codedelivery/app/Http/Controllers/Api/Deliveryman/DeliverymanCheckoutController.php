@@ -8,8 +8,6 @@ use CodeDelivery\Repositories\OrderRepository;
 use CodeDelivery\Repositories\ProductRepository;
 use CodeDelivery\Repositories\UserRepository;
 use CodeDelivery\Services\OrderService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 
 class DeliverymanCheckoutController extends Controller
@@ -57,11 +55,9 @@ class DeliverymanCheckoutController extends Controller
 
     public function show($id)
     {
-        $o = $this->repository->with(['client','items','cupom'])->find($id);
-        $o->items->each(function($item){
-           $item->product;
-        });
-        return $o;
+        $idDeliveryman = Authorizer::getResourceOwnerId();
+        return $this->repository->getByIdAndDeliveryman($id, $idDeliveryman);
+
     }
 
 
