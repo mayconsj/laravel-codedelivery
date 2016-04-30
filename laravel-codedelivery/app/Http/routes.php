@@ -61,11 +61,26 @@ Route::post('oauth/access_token', function () {
 });
 
 Route::group(['prefix' => 'api', 'middleware' => 'oauth', 'as' => 'api.'], function () {
-    Route::get('pedidos', function (){
-        return [
-            'id' => 1,
-            'client' => 'Luiz Carlos',
-            'total' => 10
-        ];
+
+    Route::group(['prefix' => 'client', 'as' => 'client.'], function () {
+        Route::get('pedidos', function () {
+            return [
+                'id' => 1,
+                'client' => 'Luiz Carlos - Cliente',
+                'total' => 10
+            ];
+        });
     });
+
+    Route::group(['prefix' => 'deliveryman', 'as' => 'deliveryman.'], function () {
+        Route::get('pedidos', function () {
+            return [
+                'id' => 1,
+                'client' => 'Luiz Carlos - Deliveryman',
+                'total' => 10
+            ];
+        });
+    });
+
+
 });
