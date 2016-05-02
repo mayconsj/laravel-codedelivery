@@ -31,7 +31,7 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
                     'data' => $result['data'][0]
                 ];
             }else{
-                trow new ModelNotFoundException("Order não existe");
+                throw new ModelNotFoundException("Order não existe");
             }
         }
 
