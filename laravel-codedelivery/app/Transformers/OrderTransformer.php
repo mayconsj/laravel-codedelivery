@@ -2,6 +2,7 @@
 
 namespace CodeDelivery\Transformers;
 
+use CodeDelivery\Models\Client;
 use League\Fractal\TransformerAbstract;
 use CodeDelivery\Models\Order;
 
@@ -11,7 +12,7 @@ use CodeDelivery\Models\Order;
  */
 class OrderTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['cupom','items'];
+    protected $availableIncludes = ['cupom','items','client'];
 
     /**
      * Transform the \Order entity
@@ -34,6 +35,10 @@ class OrderTransformer extends TransformerAbstract
 
     //Many to One -> Cupom
     //One to many -> OrderItem
+
+    public function includeClient(Order $model){
+        return $this->item($model->client, new ClientTransformer());
+    }
 
     public function includeCupom(Order $model){
         if (!$model->cupom){
