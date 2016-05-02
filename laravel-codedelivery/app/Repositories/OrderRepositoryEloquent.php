@@ -3,6 +3,7 @@
 namespace CodeDelivery\Repositories;
 
 use CodeDelivery\Models\Order;
+use CodeDelivery\Presenters\OrderPresenter;
 use CodeDelivery\Validators\OrderValidator;
 use Illuminate\Database\Eloquent\Collection;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -49,10 +50,11 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
-    
+
     public function presenter()
     {
-        return \Prettus\Repository\Presenter\ModelFractalPresenter::class;
+        return \CodeDelivery\Presenters\OrderPresenter::class;
     }
+
 
 }

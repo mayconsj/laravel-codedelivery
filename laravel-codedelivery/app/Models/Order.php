@@ -21,7 +21,7 @@ class Order extends Model implements Transformable
     {
         return [
             'order' => $this->id,
-            'items' => $this->items
+            'order_items' => $this->items
 
         ];
     }
