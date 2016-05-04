@@ -2518,7 +2518,7 @@ function($rootScope, $ionicBody, $compile, $timeout, $ionicPlatform, $ionicTempl
     /**
      * @ngdoc method
      * @name ionicModal#initialize
-     * @description Creates a new modal controller instance.
+     * @description Creates a new modal controllers instance.
      * @param {object} options An options object with the following properties:
      *  - `{object=}` `scope` The scope to be a child of.
      *    Default: creates a child of $rootScope.
@@ -2766,9 +2766,9 @@ function($rootScope, $ionicBody, $compile, $timeout, $ionicPlatform, $ionicTempl
      * @name $ionicModal#fromTemplate
      * @param {string} templateString The template string to use as the modal's
      * content.
-     * @param {object} options Options to be passed {@link ionic.controller:ionicModal#initialize ionicModal#initialize} method.
-     * @returns {object} An instance of an {@link ionic.controller:ionicModal}
-     * controller.
+     * @param {object} options Options to be passed {@link ionic.controllers:ionicModal#initialize ionicModal#initialize} method.
+     * @returns {object} An instance of an {@link ionic.controllers:ionicModal}
+     * controllers.
      */
     fromTemplate: function(templateString, options) {
       var modal = createModal(templateString, options || {});
@@ -2778,10 +2778,10 @@ function($rootScope, $ionicBody, $compile, $timeout, $ionicPlatform, $ionicTempl
      * @ngdoc method
      * @name $ionicModal#fromTemplateUrl
      * @param {string} templateUrl The url to load the template from.
-     * @param {object} options Options to be passed {@link ionic.controller:ionicModal#initialize ionicModal#initialize} method.
+     * @param {object} options Options to be passed {@link ionic.controllers:ionicModal#initialize ionicModal#initialize} method.
      * options object.
      * @returns {promise} A promise that will be resolved with an instance of
-     * an {@link ionic.controller:ionicModal} controller.
+     * an {@link ionic.controllers:ionicModal} controllers.
      */
     fromTemplateUrl: function(url, options, _) {
       var cb;
@@ -3268,8 +3268,8 @@ function($ionicModal, $ionicPosition, $document, $window) {
      * @param {string} templateString The template string to use as the popovers's
      * content.
      * @param {object} options Options to be passed to the initialize method.
-     * @returns {object} An instance of an {@link ionic.controller:ionicPopover}
-     * controller (ionicPopover is built on top of $ionicPopover).
+     * @returns {object} An instance of an {@link ionic.controllers:ionicPopover}
+     * controllers (ionicPopover is built on top of $ionicPopover).
      */
     fromTemplate: function(templateString, options) {
       return $ionicModal.fromTemplate(templateString, ionic.Utils.extend({}, POPOVER_OPTIONS, options));
@@ -3280,7 +3280,7 @@ function($ionicModal, $ionicPosition, $document, $window) {
      * @param {string} templateUrl The url to load the template from.
      * @param {object} options Options to be passed to the initialize method.
      * @returns {promise} A promise that will be resolved with an instance of
-     * an {@link ionic.controller:ionicPopover} controller (ionicPopover is built on top of $ionicPopover).
+     * an {@link ionic.controllers:ionicPopover} controllers (ionicPopover is built on top of $ionicPopover).
      */
     fromTemplateUrl: function(url, options) {
       return $ionicModal.fromTemplateUrl(url, ionic.Utils.extend({}, POPOVER_OPTIONS, options));
@@ -7273,7 +7273,7 @@ function($scope,
   }
 
 
-  //Attach self to element as a controller so other directives can require this controller
+  //Attach self to element as a controllers so other directives can require this controllers
   //through `require: '$ionicScroll'
   //Also attach to parent so that sibling elements can require this
   ($element.parent().length ? $element.parent() : $element)
@@ -7477,7 +7477,7 @@ function($scope, $attrs, $ionicSideMenuDelegate, $ionicPlatform, $ionicBody, $io
   };
 
   /**
-   * Set the content view controller if not passed in the constructor options.
+   * Set the content view controllers if not passed in the constructor options.
    *
    * @param {object} content
    */
@@ -9881,7 +9881,7 @@ function($timeout, $controller, $ionicBind, $ionicConfig) {
             };
           }
 
-          // init scroll controller with appropriate options
+          // init scroll controllers with appropriate options
           scrollCtrl = $controller('$ionicScroll', {
             $scope: $scope,
             scrollViewOptions: scrollViewOptions
@@ -10567,7 +10567,7 @@ IonicModule
         // grabbing the scrollable element, to determine dimensions, and current scroll pos
         var scrollEl = ionic.DomUtil.getParentOrSelfWithClass($element[0].parentNode, 'overflow-scroll');
         infiniteScrollCtrl.scrollEl = scrollEl;
-        // if there's no scroll controller, and no overflow scroll div, infinite scroll wont work
+        // if there's no scroll controllers, and no overflow scroll div, infinite scroll wont work
         if (!scrollEl) {
           throw 'Infinite scroll must be used inside a scrollable div';
         }
@@ -12369,7 +12369,7 @@ IonicModule
     '</div>',
     link: function($scope, $element, $attrs, ctrls) {
 
-      // JS Scrolling uses the scroll controller
+      // JS Scrolling uses the scroll controllers
       var scrollCtrl = ctrls[0],
           refresherCtrl = ctrls[1];
       if (!scrollCtrl || scrollCtrl.isNative()) {

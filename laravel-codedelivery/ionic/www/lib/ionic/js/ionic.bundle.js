@@ -41,18 +41,18 @@ window.ionic.version = '1.3.0';
 
       /*
        * Creates a new object that will have all the methodNames given,
-       * and call them on the given the controller instance matching given
+       * and call them on the given the controllers instance matching given
        * handle.
-       * The reason we don't just let $getByHandle return the controller instance
-       * itself is that the controller instance might not exist yet.
+       * The reason we don't just let $getByHandle return the controllers instance
+       * itself is that the controllers instance might not exist yet.
        *
        * We want people to be able to do
-       * `var instance = $ionicScrollDelegate.$getByHandle('foo')` on controller
-       * instantiation, but on controller instantiation a child directive
+       * `var instance = $ionicScrollDelegate.$getByHandle('foo')` on controllers
+       * instantiation, but on controllers instantiation a child directive
        * may not have been compiled yet!
        *
        * So this is our way of solving this problem: we create an object
-       * that will only try to fetch the controller with given handle
+       * that will only try to fetch the controllers with given handle
        * once the methods are actually called.
        */
       function DelegateInstance(instances, handle) {
@@ -14994,14 +14994,14 @@ function angularInit(element, bootstrap) {
  * <!doctype html>
  * <html>
  * <body>
- * <div ng-controller="WelcomeController">
+ * <div ng-controllers="WelcomeController">
  *   {{greeting}}
  * </div>
  *
  * <script src="angular.js"></script>
  * <script>
  *   var app = angular.module('demo', [])
- *   .controller('WelcomeController', function($scope) {
+ *   .controllers('WelcomeController', function($scope) {
  *       $scope.greeting = 'Welcome!';
  *   });
  *   angular.bootstrap(document, ['demo']);
@@ -20807,9 +20807,9 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
       var controller = directive.controller;
       var controllerAs = directive.controllerAs;
       if (!controller) {
-        // There is no controller, there may or may not be a controllerAs property
+        // There is no controllers, there may or may not be a controllerAs property
         throw $compileMinErr('noctrl',
-              "Cannot bind to controller without directive '{0}'s controller.",
+              "Cannot bind to controllers without directive '{0}'s controllers.",
               directiveName);
       } else if (!identifierForController(controller, controllerAs)) {
         // There is a controller, but no identifier or controllerAs property
@@ -20896,11 +20896,11 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    *    {@link ng.$compile#directive-definition-object directive definition object}),
    *    with the following properties (all optional):
    *
-   *    - `controller` – `{(string|function()=}` – controller constructor function that should be
-   *      associated with newly created scope or the name of a {@link ng.$compile#-controller-
-   *      registered controller} if passed as a string. An empty `noop` function by default.
-   *    - `controllerAs` – `{string=}` – identifier name for to reference the controller in the component's scope.
-   *      If present, the controller will be published to scope under the `controllerAs` name.
+   *    - `controllers` – `{(string|function()=}` – controllers constructor function that should be
+   *      associated with newly created scope or the name of a {@link ng.$compile#-controllers-
+   *      registered controllers} if passed as a string. An empty `noop` function by default.
+   *    - `controllerAs` – `{string=}` – identifier name for to reference the controllers in the component's scope.
+   *      If present, the controllers will be published to scope under the `controllerAs` name.
    *      If not present, this will default to be `$ctrl`.
    *    - `template` – `{string=|function()=}` – html template as a string or a function that
    *      returns an html template as a string which should be used as the contents of this component.
@@ -20922,11 +20922,11 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    *      - `$attrs` - Current attributes object for the element
    *
    *    - `bindings` – `{object=}` – defines bindings between DOM attributes and component properties.
-   *      Component properties are always bound to the component controller and not to the scope.
+   *      Component properties are always bound to the component controllers and not to the scope.
    *      See {@link ng.$compile#-bindtocontroller- `bindToController`}.
    *    - `transclude` – `{boolean=}` – whether {@link $compile#transclusion content transclusion} is enabled.
    *      Disabled by default.
-   *    - `$...` – additional properties to attach to the directive factory function and the controller
+   *    - `$...` – additional properties to attach to the directive factory function and the controllers
    *      constructor function. (This is used by the component router to annotate)
    *
    * @returns {ng.$compileProvider} the compile provider itself, for chaining of function calls.
@@ -20936,7 +20936,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    * are always isolated (i.e. `scope: {}`) and are always restricted to elements (i.e. `restrict: 'E'`).
    *
    * Component definitions are very simple and do not require as much configuration as defining general
-   * directives. Component definitions usually consist only of a template and a controller backing it.
+   * directives. Component definitions usually consist only of a template and a controllers backing it.
    *
    * In order to make the definition easier, components enforce best practices like use of `controllerAs`,
    * `bindToController`. They always have **isolate scope** and are restricted to elements.
@@ -20947,7 +20947,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    *   var myMod = angular.module(...);
    *   myMod.component('myComp', {
    *     template: '<div>My name is {{$ctrl.name}}</div>',
-   *     controller: function() {
+   *     controllers: function() {
    *       this.name = 'shahar';
    *     }
    *   });
@@ -20959,7 +20959,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    *
    *   myMod.component('myComp', {
    *     templateUrl: 'views/my-comp.html',
-   *     controller: 'MyCtrl',
+   *     controllers: 'MyCtrl',
    *     controllerAs: 'ctrl',
    *     bindings: {name: '@'}
    *   });
@@ -22311,7 +22311,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
 
           var controllerResult = controller();
           if (controllerResult !== controller.instance) {
-            // If the controller constructor has a return value, overwrite the instance
+            // If the controllers constructor has a return value, overwrite the instance
             // from setupControllers
             controller.instance = controllerResult;
             $element.data('$' + controllerDirective.name + 'Controller', controllerResult);
@@ -22434,7 +22434,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
         //If only parents then start at the parent element
         if (inheritType === '^^') {
           $element = $element.parent();
-        //Otherwise attempt getting the controller from elementControllers in case
+        //Otherwise attempt getting the controllers from elementControllers in case
         //the element is transcluded (and has no data) and to avoid .data if possible
         } else {
           value = elementControllers && elementControllers[name];
@@ -22974,7 +22974,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
     }
 
 
-    // Set up $watches for isolate scope and controller bindings. This process
+    // Set up $watches for isolate scope and controllers bindings. This process
     // only occurs for isolate scopes and new scopes with controllerAs.
     function initializeDirectiveBindings(scope, attrs, destination, bindings, directive) {
       var removeWatchCollection = [];
@@ -23283,7 +23283,7 @@ function $ControllerProvider() {
   /**
    * @ngdoc method
    * @name $controllerProvider#allowGlobals
-   * @description If called, allows `$controller` to find controller constructors on `window`
+   * @description If called, allows `$controllers` to find controllers constructors on `window`
    */
   this.allowGlobals = function() {
     globals = true;
@@ -23321,11 +23321,11 @@ function $ControllerProvider() {
      */
     return function $controller(expression, locals, later, ident) {
       // PRIVATE API:
-      //   param `later` --- indicates that the controller's constructor is invoked at a later time.
+      //   param `later` --- indicates that the controllers's constructor is invoked at a later time.
       //                     If true, $controller will allocate the object with the correct
-      //                     prototype chain, but will not invoke the controller until a returned
+      //                     prototype chain, but will not invoke the controllers until a returned
       //                     callback is invoked.
-      //   param `ident` --- An optional label which overrides the label parsed from the controller
+      //   param `ident` --- An optional label which overrides the label parsed from the controllers
       //                     expression, if any.
       var instance, match, constructor, identifier;
       later = later === true;
@@ -23337,7 +23337,7 @@ function $ControllerProvider() {
         match = expression.match(CNTRL_REG);
         if (!match) {
           throw $controllerMinErr('ctrlfmt',
-            "Badly formed controller string '{0}'. " +
+            "Badly formed controllers string '{0}'. " +
             "Must match `__name__ as __id__` or `__name__`.", expression);
         }
         constructor = match[1],
@@ -23353,9 +23353,9 @@ function $ControllerProvider() {
       if (later) {
         // Instantiate controller later:
         // This machinery is used to create an instance of the object before calling the
-        // controller's constructor itself.
+        // controllers's constructor itself.
         //
-        // This allows properties to be added to the controller before the constructor is
+        // This allows properties to be added to the controllers before the constructor is
         // invoked. Primarily, this is used for isolate scope bindings in $compile.
         //
         // This feature is not intended for use by applications, and is thus not documented
@@ -23398,7 +23398,7 @@ function $ControllerProvider() {
     function addIdentifier(locals, identifier, instance, name) {
       if (!(locals && isObject(locals.$scope))) {
         throw minErr('$controller')('noscp',
-          "Cannot export controller '{0}' as '{1}'! No $scope object provided via `locals`.",
+          "Cannot export controllers '{0}' as '{1}'! No $scope object provided via `locals`.",
           name, identifier);
       }
 
@@ -42744,7 +42744,7 @@ var ngSwitchDirective = ['$animate', '$compile', function($animate, $compile) {
   return {
     require: 'ngSwitch',
 
-    // asks for $scope to fool the BC controller module
+    // asks for $scope to fool the BC controllers module
     controller: ['$scope', function ngSwitchController() {
      this.cases = {};
     }],
@@ -50367,7 +50367,7 @@ function $UrlMatcherFactory() {
    *
    * $stateProvider.state('list', {
    *   url: "/list/{item:listItem}",
-   *   controller: function($scope, $stateParams) {
+   *   controllers: function($scope, $stateParams) {
    *     console.log($stateParams.item);
    *   }
    * });
@@ -50423,7 +50423,7 @@ function $UrlMatcherFactory() {
    *   // ...
    * }).state('users.item', {
    *   url: "/{user:dbObject}",
-   *   controller: function($scope, $stateParams) {
+   *   controllers: function($scope, $stateParams) {
    *     // $stateParams.user will now be an object returned from
    *     // the Users service
    *   },
@@ -51329,10 +51329,10 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
    *   be a super-set of parent's params.
    * - **views** `{object}` - returns a views object where each key is an absolute view 
    *   name (i.e. "viewName@stateName") and each value is the config object 
-   *   (template, controller) for the view. Even when you don't use the views object 
+   *   (template, controllers) for the view. Even when you don't use the views object 
    *   explicitly on a state config, one is still created for you internally.
    *   So by decorating this builder function you have access to decorating template 
-   *   and controller properties.
+   *   and controllers properties.
    * - **ownParams** `{object}` - returns an array of params that belong to the state, 
    *   not including any params defined by ancestor states.
    * - **path** `{string}` - returns the full path from the root down to this state. 
@@ -51358,8 +51358,8 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
    *
    * $stateProvider.state('home', {
    *   views: {
-   *     'contact.list': { controller: 'ListController' },
-   *     'contact.item': { controller: 'ItemController' }
+   *     'contact.list': { controllers: 'ListController' },
+   *     'contact.item': { controllers: 'ItemController' }
    *   }
    * });
    *
@@ -51870,7 +51870,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
      * <pre>
      * var app = angular.module('app', ['ui.router']);
      *
-     * app.controller('ctrl', function ($scope, $state) {
+     * app.controllers('ctrl', function ($scope, $state) {
      *   $scope.changeState = function () {
      *     $state.go('contact.detail');
      *   };
@@ -51936,7 +51936,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
      * <pre>
      * var app = angular.module('app', ['ui.router']);
      *
-     * app.controller('ctrl', function ($scope, $state) {
+     * app.controllers('ctrl', function ($scope, $state) {
      *   $scope.changeState = function () {
      *     $state.transitionTo('contact.detail');
      *   };
@@ -55921,9 +55921,9 @@ function($rootScope, $ionicBody, $compile, $timeout, $ionicPlatform, $ionicTempl
      * @name $ionicModal#fromTemplate
      * @param {string} templateString The template string to use as the modal's
      * content.
-     * @param {object} options Options to be passed {@link ionic.controller:ionicModal#initialize ionicModal#initialize} method.
-     * @returns {object} An instance of an {@link ionic.controller:ionicModal}
-     * controller.
+     * @param {object} options Options to be passed {@link ionic.controllers:ionicModal#initialize ionicModal#initialize} method.
+     * @returns {object} An instance of an {@link ionic.controllers:ionicModal}
+     * controllers.
      */
     fromTemplate: function(templateString, options) {
       var modal = createModal(templateString, options || {});
@@ -55933,10 +55933,10 @@ function($rootScope, $ionicBody, $compile, $timeout, $ionicPlatform, $ionicTempl
      * @ngdoc method
      * @name $ionicModal#fromTemplateUrl
      * @param {string} templateUrl The url to load the template from.
-     * @param {object} options Options to be passed {@link ionic.controller:ionicModal#initialize ionicModal#initialize} method.
+     * @param {object} options Options to be passed {@link ionic.controllers:ionicModal#initialize ionicModal#initialize} method.
      * options object.
      * @returns {promise} A promise that will be resolved with an instance of
-     * an {@link ionic.controller:ionicModal} controller.
+     * an {@link ionic.controllers:ionicModal} controllers.
      */
     fromTemplateUrl: function(url, options, _) {
       var cb;
@@ -56423,8 +56423,8 @@ function($ionicModal, $ionicPosition, $document, $window) {
      * @param {string} templateString The template string to use as the popovers's
      * content.
      * @param {object} options Options to be passed to the initialize method.
-     * @returns {object} An instance of an {@link ionic.controller:ionicPopover}
-     * controller (ionicPopover is built on top of $ionicPopover).
+     * @returns {object} An instance of an {@link ionic.controllers:ionicPopover}
+     * controllers (ionicPopover is built on top of $ionicPopover).
      */
     fromTemplate: function(templateString, options) {
       return $ionicModal.fromTemplate(templateString, ionic.Utils.extend({}, POPOVER_OPTIONS, options));
@@ -56435,7 +56435,7 @@ function($ionicModal, $ionicPosition, $document, $window) {
      * @param {string} templateUrl The url to load the template from.
      * @param {object} options Options to be passed to the initialize method.
      * @returns {promise} A promise that will be resolved with an instance of
-     * an {@link ionic.controller:ionicPopover} controller (ionicPopover is built on top of $ionicPopover).
+     * an {@link ionic.controllers:ionicPopover} controllers (ionicPopover is built on top of $ionicPopover).
      */
     fromTemplateUrl: function(url, options) {
       return $ionicModal.fromTemplateUrl(url, ionic.Utils.extend({}, POPOVER_OPTIONS, options));
@@ -60428,7 +60428,7 @@ function($scope,
   }
 
 
-  //Attach self to element as a controller so other directives can require this controller
+  //Attach self to element as a controllers so other directives can require this controllers
   //through `require: '$ionicScroll'
   //Also attach to parent so that sibling elements can require this
   ($element.parent().length ? $element.parent() : $element)
@@ -60632,7 +60632,7 @@ function($scope, $attrs, $ionicSideMenuDelegate, $ionicPlatform, $ionicBody, $io
   };
 
   /**
-   * Set the content view controller if not passed in the constructor options.
+   * Set the content view controllers if not passed in the constructor options.
    *
    * @param {object} content
    */
@@ -63036,7 +63036,7 @@ function($timeout, $controller, $ionicBind, $ionicConfig) {
             };
           }
 
-          // init scroll controller with appropriate options
+          // init scroll controllers with appropriate options
           scrollCtrl = $controller('$ionicScroll', {
             $scope: $scope,
             scrollViewOptions: scrollViewOptions
@@ -63722,7 +63722,7 @@ IonicModule
         // grabbing the scrollable element, to determine dimensions, and current scroll pos
         var scrollEl = ionic.DomUtil.getParentOrSelfWithClass($element[0].parentNode, 'overflow-scroll');
         infiniteScrollCtrl.scrollEl = scrollEl;
-        // if there's no scroll controller, and no overflow scroll div, infinite scroll wont work
+        // if there's no scroll controllers, and no overflow scroll div, infinite scroll wont work
         if (!scrollEl) {
           throw 'Infinite scroll must be used inside a scrollable div';
         }
