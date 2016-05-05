@@ -30,28 +30,50 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-oauth2'])
             clientId: 'appid01',
             clientSecret: 'secret', // optional
             grantPath: '/oauth/access_token'
-        });
-
+        })
         OAuthTokenProvider.configure({
             name: 'token',
             options: {
                 secure: false
             }
-        });
-
+        })
         $stateProvider
             .state('login', {
                 url: '/login',
                 templateUrl: 'templates/login.html',
                 controller: 'LoginCtrl'
-            });
+            })
         $stateProvider
             .state('home', {
                 url: '/home',
                 templateUrl: 'templates/home.html',
                 controller: function ($scope) {
-                    
+
                 }
-            });
+            })
+        $stateProvider
+            .state('client', {
+                abstract: true,
+                url: '/client',
+                template: '<ui-view/>',
+            })
+        $stateProvider
+            .state('client.checkout', {
+                url: '/checkout',
+                templateUrl: 'templates/client/checkout.html',
+                controller: 'ClientCheckoutCtrl'
+            })
+        $stateProvider
+            .state('client.checkout_item_detail', {
+                url: '/checkout/detail/:index',
+                templateUrl: 'templates/client/checkout_item_detail.html',
+                controller: 'ClientCheckoutDetailCtrl'
+            })
+        $stateProvider
+            .state('client.view_products', {
+                url: '/view_products',
+                templateUrl: 'templates/client/view_products.html',
+                controller: 'ClientViewProductsCtrl'
+            })
         //$urlRouterProvider.otherwise('/');
     });
