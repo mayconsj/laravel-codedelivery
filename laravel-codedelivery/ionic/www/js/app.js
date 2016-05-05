@@ -4,7 +4,8 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module('starter.controllers', []);
-angular.module('starter', ['ionic', 'starter.controllers', 'angular-oauth2', 'ngResource'])
+angular.module('starter.services', []);
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'angular-oauth2', 'ngResource'])
 
     .constant('appConfig',{
         baseUrl: 'http://localhost:8000'
