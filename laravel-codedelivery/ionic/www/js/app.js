@@ -61,7 +61,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             .state('client', {
                 abstract: true,
                 url: '/client',
-                template: '<ui-view/>',
+                template: '<ion-nav-view/>',
             })
         $stateProvider
             .state('client.checkout', {
