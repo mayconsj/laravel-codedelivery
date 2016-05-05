@@ -1,7 +1,16 @@
 angular.module('starter.controllers')
     .controller('ClientViewProductCtrl', [
-        '$scope', '$state', function ($scope, $state, appConfig) {
+        '$scope', '$state', 'appConfig', '$resource', function ($scope, $state, appConfig, $resource) {
 
-            $http:get('http://localhost/api/client/products')
-                    
+            var product = $resource(appConfig.baseUrl + '/api/client/products', {},{
+                query:{
+                    isArray: false
+                }
+            });
+
+            product.query({},function (data) {
+                console.log("Mostrando Produtos");
+                console.log(data);
+            });
+
         }]);
