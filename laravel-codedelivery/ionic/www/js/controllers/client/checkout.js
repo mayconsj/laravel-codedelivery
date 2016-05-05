@@ -1,8 +1,8 @@
 angular.module('starter.controllers')
     .controller('ClientCheckoutCtrl', [
-        '$scope', '$state', 'cart', function ($scope, $state, cart) {
+        '$scope', '$state', 'cart', '$localStorage', function ($scope, $state, cart, $localStorage) {
 
             $scope.items = cart.items;
-            console.log(JSON.parse(window.localStorage['cart']));
+            console.log($localStorage.get('cart'));
 
         }]);
