@@ -82,4 +82,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 controller: 'ClientViewProductCtrl'
             })
         //$urlRouterProvider.otherwise('/');
-    });
+    })
+    .service('cart',function () {
+        this.items = [];
+    })

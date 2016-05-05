@@ -1,6 +1,7 @@
 angular.module('starter.controllers')
     .controller('ClientViewProductCtrl', [
-        '$scope', '$state', 'Product', '$ionicLoading', function ($scope, $state, Product, $ionicLoading) {
+        '$scope', '$state', 'Product', '$ionicLoading', 'cart',
+        function ($scope, $state, Product, $ionicLoading, cart) {
 
             $scope.products = [];
             $ionicLoading.show({
@@ -13,5 +14,10 @@ angular.module('starter.controllers')
             }, function (dataError) {
                 $ionicLoading.hide();
             });
+            
+            $scope.addItem = function (item) {
+                cart.items.push(item);
+                $state.go('client.checkout');
+            }
 
         }]);
