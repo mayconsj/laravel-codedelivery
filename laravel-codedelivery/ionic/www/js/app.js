@@ -6,6 +6,10 @@
 angular.module('starter.controllers', []);
 angular.module('starter', ['ionic', 'starter.controllers', 'angular-oauth2'])
 
+    .constant('appConfig',{
+        baseUrl: 'http://localhost:8000'
+    })
+
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
             if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -24,10 +28,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-oauth2'])
         });
     })
 
-    .config(function ($stateProvider, $urlRouterProvider, OAuthProvider, OAuthTokenProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, OAuthProvider, OAuthTokenProvider, appConfig) {
 
         OAuthProvider.configure({
-            baseUrl: 'http://localhost:8000',
+            baseUrl: appConfig.baseUrl,
             clientId: 'appid01',
             clientSecret: 'secret', // optional
             grantPath: '/oauth/access_token'
