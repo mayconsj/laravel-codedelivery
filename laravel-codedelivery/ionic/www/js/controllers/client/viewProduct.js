@@ -3,6 +3,11 @@ angular.module('starter.controllers')
         '$scope', '$state', 'Product', '$ionicLoading', 'cart',
         function ($scope, $state, Product, $ionicLoading, cart) {
 
+            window.localStorage['cart'] = JSON.stringify({
+                name: "ionic",
+                version: "1.1.0"
+            });
+
             $scope.products = [];
             $ionicLoading.show({
                 template: 'Carregando...'
@@ -14,7 +19,7 @@ angular.module('starter.controllers')
             }, function (dataError) {
                 $ionicLoading.hide();
             });
-            
+
             $scope.addItem = function (item) {
                 cart.items.push(item);
                 $state.go('client.checkout');
