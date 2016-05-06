@@ -1,8 +1,8 @@
 angular.module('starter.services')
     .service('$cart', ['$localStorage', function ($localStorage) {
-        var key = 'kart', cartAux = $localStorage.getObject(key);
+        var key = 'cart', cartAux = $localStorage.getObject(key);
 
-        if (!cartAux) {
+        if (cartAux == null) {
             initCart();
         }
 
@@ -24,7 +24,7 @@ angular.module('starter.services')
                 itemAux = cart.items[index];
                 if (itemAux.id == item.id) {
                     itemAux.qtd = item.qtd + itemAux.qtd;
-                    itemAux.subTotal = calculateSubTotal(itemAux);
+                    itemAux.subtotal = calculateSubTotal(itemAux);
                     exists = true;
                     break;
                 }
@@ -41,6 +41,15 @@ angular.module('starter.services')
         this.removeItem = function (i) {
             var cart = this.get();
             cart.items.splice(i, 1);
+            cart.total = getTotal(cart.items);
+            $localStorage.setObject(key, cart);
+        };
+
+        this.updateQtd = function (i, qtd) {
+            var cart = this.get(), itemAux = cart.items[i];
+            itemAux.qtd = qtd;
+            itemAux.subtotal = calculateSubTotal(itemAux);
+
             cart.total = getTotal(cart.items);
             $localStorage.setObject(key, cart);
         };
@@ -62,6 +71,6 @@ angular.module('starter.services')
                 items: [],
                 total: 0
             });
-        };
+        }
 
     }]);

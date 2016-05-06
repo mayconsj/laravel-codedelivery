@@ -8,7 +8,7 @@ angular.module('starter.controllers')
             $scope.removeItem = function (i) {
                 $cart.removeItem(i);
                 $scope.items.splice(i, 1);
-                $scope.toal = $cart.get().total;
+                $scope.total = $cart.get().total;
             }
 
 

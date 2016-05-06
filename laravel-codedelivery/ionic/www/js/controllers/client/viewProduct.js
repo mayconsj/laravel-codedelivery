@@ -19,6 +19,6 @@ angular.module('starter.controllers')
                 item.qtd = 1;
                 $cart.addItem(item);
                 $state.go('client.checkout');
-            }
+            };
 
         }]);
