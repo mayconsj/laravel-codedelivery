@@ -11,5 +11,12 @@ angular.module('starter.controllers')
                 $scope.total = $cart.get().total;
             }
 
+            $scope.openListProducts = function () {
+                $state.go('client.view_products');
+            };
+
+            $scope.openProductDetail = function (i) {
+                $state.go('client.checkout_item_detail',{index: i});
+            };
 
         }]);
