@@ -1,11 +1,13 @@
 angular.module('starter.services')
     .service('$cart', ['$localStorage', function ($localStorage) {
-        var key = 'kart';
+        var key = 'kart', cartAux = $localStorage.getObject(key);
+
+        if (!cartAux) {
+            initCart();
+        }
+
         this.clear = function () {
-            $localStorage.setObject(key, {
-                items: [],
-                total: 0
-            })
+            initCart();
         };
 
         this.get = function () {
@@ -54,5 +56,12 @@ angular.module('starter.services')
             });
             return sum;
         }
+
+        function initCart() {
+            $localStorage.setObject(key, {
+                items: [],
+                total: 0
+            });
+        };
 
     }]);
