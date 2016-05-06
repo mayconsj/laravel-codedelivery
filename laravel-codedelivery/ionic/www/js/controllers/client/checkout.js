@@ -5,6 +5,11 @@ angular.module('starter.controllers')
             var cart = $cart.get();
             $scope.items = cart.items;
             $scope.total = cart.total;
+            $scope.removeItem = function (i) {
+                $cart.removeItem(i);
+                $scope.items.splice(i, 1);
+                $scope.toal = $cart.get().total;
+            }
 
 
         }]);
