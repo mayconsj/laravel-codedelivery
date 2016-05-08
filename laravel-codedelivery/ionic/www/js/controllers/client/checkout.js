@@ -30,6 +30,7 @@ angular.module('starter.controllers')
                 });
                 Order.save({id: null}, {items: items}, function (data) {
                     $ionicLoading.hide();
+                    $state.go('client.checkout_successful');
                 }, function (responseError) {
                     $ionicLoading.hide();
                     $ionicPopup.alert({

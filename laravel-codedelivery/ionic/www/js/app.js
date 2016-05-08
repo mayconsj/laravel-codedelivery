@@ -7,7 +7,7 @@ angular.module('starter.controllers', []);
 angular.module('starter.services', []);
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'angular-oauth2', 'ngResource'])
 
-    .constant('appConfig',{
+    .constant('appConfig', {
         baseUrl: 'http://localhost:8000'
     })
 
@@ -75,6 +75,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 url: '/checkout/detail/:index',
                 templateUrl: 'templates/client/checkout_item_detail.html',
                 controller: 'ClientCheckoutDetailCtrl'
+            })
+        $stateProvider
+            .state('client.checkout_successful', {
+                url: '/checkout/successful',
+                templateUrl: 'templates/client/checkout_successful.html',
+                controller: 'ClientCheckoutSuccessCtrl'
             })
         $stateProvider
             .state('client.view_products', {
