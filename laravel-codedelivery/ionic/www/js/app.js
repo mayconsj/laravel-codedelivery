@@ -78,6 +78,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             })
         $stateProvider
             .state('client.checkout_successful', {
+                cache: false,
                 url: '/checkout/successful',
                 templateUrl: 'templates/client/checkout_successful.html',
                 controller: 'ClientCheckoutSuccessCtrl'
