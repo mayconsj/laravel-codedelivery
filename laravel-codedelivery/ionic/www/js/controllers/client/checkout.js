@@ -3,15 +3,8 @@ angular.module('starter.controllers')
         '$scope', '$state', '$cart', 'Order', '$ionicLoading', '$ionicPopup', 'Cupom',
         function ($scope, $state, $cart, Order, $ionicLoading, $ionicPopup, Cupom) {
 
-            Cupom.get({code: 896}, function (data) {
-                $cart.setCupom(data.data.code, data.data.value);
-                console.log($cart.getTotalFinal());
-
-            }, function (responseError) {
-
-            });
-
             var cart = $cart.get();
+            $scope.cupom = cart.cupom;
             $scope.items = cart.items;
             $scope.total = cart.total;
             $scope.removeItem = function (i) {
@@ -34,7 +27,7 @@ angular.module('starter.controllers')
                     item.product_id = item.id;
                 });
                 $ionicLoading.show({
-                    template: 'Carrgeando...'
+                    template: 'Carregando...'
                 });
                 Order.save({id: null}, {items: items}, function (data) {
                     $ionicLoading.hide();
@@ -48,5 +41,33 @@ angular.module('starter.controllers')
                 });
 
             };
+
+            $scope.readBarcode = function () {
+                getValueCupom(896);
+            };
+
+            $scope.removeCupom = function () {
+                $cart.removeCupom();
+                $scope.cupom = $cart.get().cupom;
+                $scope.total = $cart.getTotalFinal();
+            };
+
+            function getValueCupom(code) {
+                $ionicLoading.show({
+                    template: 'Carregando...'
+                });
+                Cupom.get({code: code}, function (data) {
+                    $cart.setCupom(data.data.code, data.data.value);
+                    $scope.cupom = $cart.get().cupom;
+                    $scope.total = $cart.getTotalFinal();
+                    $ionicLoading.hide();
+                }, function (responseError) {
+                    $ionicLoading.hide();
+                    $ionicPopup.alert({
+                        title: 'Advertencia',
+                        template: 'Cupom Inválido'
+                    });
+                })
+            }
 
         }]);
