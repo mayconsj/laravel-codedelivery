@@ -42,7 +42,7 @@ angular.module('starter.controllers')
 
             };
 
-            $scope.readBarcode = function () {
+            $scope.readBarCode = function () {
                 getValueCupom(896);
             };
 
