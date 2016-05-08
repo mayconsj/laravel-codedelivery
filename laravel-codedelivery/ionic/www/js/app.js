@@ -8,7 +8,7 @@ angular.module('starter.services', []);
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'angular-oauth2', 'ngResource'])
 
     .constant('appConfig', {
-        baseUrl: 'http://localhost:8000'
+        baseUrl: 'http://10.0.0.9:8000'
     })
 
     .run(function ($ionicPlatform) {
@@ -89,6 +89,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 templateUrl: 'templates/client/view_products.html',
                 controller: 'ClientViewProductCtrl'
             })
-        //$urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/login');
     });
     
