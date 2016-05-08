@@ -90,5 +90,36 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 controller: 'ClientViewProductCtrl'
             })
         $urlRouterProvider.otherwise('/login');
+
+        $provide.decorator('OAuthToken', ['$localStorage', '$delegate',
+            function ($localStorage, $delegate) {
+                Object.defineProperties($delegate, {
+                    setToken: {
+                        value: function (data) {
+                            return $localStorage.setObject('token', data);
+                        },
+                        enumerable: true,
+                        configurable: true,
+                        writable: true
+                    },
+                    getToken: {
+                        value: function () {
+                            return $localStorage.getObject('token');
+                        },
+                        enumerable: true,
+                        configurable: true,
+                        writable: true
+                    },
+                    removeToken: {
+                        value: function () {
+                            $localStorage.setObject('token', null);
+                        },
+                        enumerable: true,
+                        configurable: true,
+                        writable: true
+                    }
+                });
+                return $delegate;
+            }]);
     });
     
