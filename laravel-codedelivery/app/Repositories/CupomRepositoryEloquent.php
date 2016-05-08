@@ -16,6 +16,7 @@ use CodeDelivery\Presenters\CupomPresenter;
  */
 class CupomRepositoryEloquent extends BaseRepository implements CupomRepository
 {
+    protected $skipPresenter = true;
     /**
      * Specify Model class name
      *
@@ -25,7 +26,6 @@ class CupomRepositoryEloquent extends BaseRepository implements CupomRepository
     {
         return Cupom::class;
     }
-
 
     /**
      * Boot up the repository, pushing criteria
