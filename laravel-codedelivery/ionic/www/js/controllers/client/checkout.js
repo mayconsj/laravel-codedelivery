@@ -1,6 +1,7 @@
 angular.module('starter.controllers')
     .controller('ClientCheckoutCtrl', [
-        '$scope', '$state', '$cart', function ($scope, $state, $cart) {
+        '$scope', '$state', '$cart', 'Order', '$ionicLoading', '$ionicPopup',
+        function ($scope, $state, $cart, Order, $ionicLoading, $ionicPopup) {
 
             var cart = $cart.get();
             $scope.items = cart.items;
@@ -16,7 +17,27 @@ angular.module('starter.controllers')
             };
 
             $scope.openProductDetail = function (i) {
-                $state.go('client.checkout_item_detail',{index: i});
+                $state.go('client.checkout_item_detail', {index: i});
+            };
+
+            $scope.save = function () {
+                var items = angular.copy($scope.items);
+                angular.forEach(items, function (item) {
+                    item.product_id = item.id;
+                });
+                $ionicLoading.show({
+                    template: 'Carrgeando...'
+                });
+                Order.save({id: null}, {items: items}, function (data) {
+                    $ionicLoading.hide();
+                }, function (responseError) {
+                    $ionicLoading.hide();
+                    $ionicPopup.alert({
+                        title: 'Advertencia',
+                        template: 'Pedido não realizado'
+                    });
+                });
+
             };
 
         }]);
