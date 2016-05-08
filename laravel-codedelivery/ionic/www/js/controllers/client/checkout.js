@@ -1,7 +1,13 @@
 angular.module('starter.controllers')
     .controller('ClientCheckoutCtrl', [
-        '$scope', '$state', '$cart', 'Order', '$ionicLoading', '$ionicPopup',
-        function ($scope, $state, $cart, Order, $ionicLoading, $ionicPopup) {
+        '$scope', '$state', '$cart', 'Order', '$ionicLoading', '$ionicPopup', 'Cupom',
+        function ($scope, $state, $cart, Order, $ionicLoading, $ionicPopup, Cupom) {
+
+            Cupom.get({code: '896'}, function (data) {
+                console.log(data);
+            },function (responseError) {
+
+            });
 
             var cart = $cart.get();
             $scope.items = cart.items;
@@ -10,7 +16,7 @@ angular.module('starter.controllers')
                 $cart.removeItem(i);
                 $scope.items.splice(i, 1);
                 $scope.total = $cart.get().total;
-            }
+            };
 
             $scope.openListProducts = function () {
                 $state.go('client.view_products');
