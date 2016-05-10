@@ -5,10 +5,10 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('starter.controllers', []);
 angular.module('starter.services', []);
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'angular-oauth2', 'ngResource'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'angular-oauth2', 'ngResource', 'ngCordova'])
 
     .constant('appConfig', {
-        baseUrl: 'http://10.0.0.9:8000'
+        baseUrl: 'http://172.28.204.68:8000'
     })
 
     .run(function ($ionicPlatform) {
@@ -29,7 +29,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         });
     })
 
-    .config(function ($stateProvider, $urlRouterProvider, OAuthProvider, OAuthTokenProvider, appConfig) {
+    .config(function ($stateProvider, $urlRouterProvider, OAuthProvider, OAuthTokenProvider, appConfig, $provide) {
 
         OAuthProvider.configure({
             baseUrl: appConfig.baseUrl,

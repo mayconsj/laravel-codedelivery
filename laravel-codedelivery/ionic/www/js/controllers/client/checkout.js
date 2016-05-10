@@ -1,7 +1,7 @@
 angular.module('starter.controllers')
     .controller('ClientCheckoutCtrl', [
-        '$scope', '$state', '$cart', 'Order', '$ionicLoading', '$ionicPopup', 'Cupom',
-        function ($scope, $state, $cart, Order, $ionicLoading, $ionicPopup, Cupom) {
+        '$scope', '$state', '$cart', 'Order', '$ionicLoading', '$ionicPopup', 'Cupom', '$cordovaBarcodeScanner',
+        function ($scope, $state, $cart, Order, $ionicLoading, $ionicPopup, Cupom, $cordovaBarcodeScanner) {
 
             var cart = $cart.get();
             $scope.cupom = cart.cupom;
@@ -29,7 +29,7 @@ angular.module('starter.controllers')
                 $ionicLoading.show({
                     template: 'Carregando...'
                 });
-                if($scope.cupom.value){
+                if ($scope.cupom.value) {
                     o.cupom_code = $scope.cupom_code;
                 }
                 Order.save({id: null}, o, function (data) {
@@ -38,15 +38,24 @@ angular.module('starter.controllers')
                 }, function (responseError) {
                     $ionicLoading.hide();
                     $ionicPopup.alert({
-                        title: 'Advertencia',
+                        title: 'Advertência',
                         template: 'Pedido não realizado'
                     });
                 });
 
             };
 
-            $scope.readBarCode = function () {
-                getValueCupom(896);
+            $scope.readBarcode = function () {
+                $cordovaBarcodeScanner
+                    .scan()
+                    .then(function (barcodeData) {
+                        getValueCupom(barcodeData.text);
+                    }, function (error) {
+                        $ionicPopup.alert({
+                            title: 'Advertência',
+                            template: 'Não foi possível ler o código de barras'
+                        });
+                    });
             };
 
             $scope.removeCupom = function () {
