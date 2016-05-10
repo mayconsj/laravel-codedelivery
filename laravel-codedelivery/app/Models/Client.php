@@ -13,6 +13,7 @@ class Client extends Model implements Transformable
     protected $fillable = [
         'user_id',
         'phone',
+        'address',
         'city',
         'state',
         'zipcode'

@@ -4,14 +4,11 @@ namespace CodeDelivery\Http\Controllers\Api\Client;
 
 use CodeDelivery\Http\Controllers\Controller;
 use CodeDelivery\Http\Requests;
-use CodeDelivery\Http\Requests\AdminClientRequest;
 use CodeDelivery\Http\Requests\CheckoutRequest;
 use CodeDelivery\Repositories\OrderRepository;
 use CodeDelivery\Repositories\ProductRepository;
 use CodeDelivery\Repositories\UserRepository;
 use CodeDelivery\Services\OrderService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 
 class ClientCheckoutController extends Controller

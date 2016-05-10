@@ -2,8 +2,8 @@
 
 namespace CodeDelivery\Transformers;
 
-use League\Fractal\TransformerAbstract;
 use CodeDelivery\Models\Client;
+use League\Fractal\TransformerAbstract;
 
 /**
  * Class ClientTransformer
@@ -21,7 +21,12 @@ class ClientTransformer extends TransformerAbstract
     public function transform(Client $model)
     {
         return [
-            'id'         => (int) $model->id,
+            'id'        => (int) $model->id,
+            'phone'     => $model->phone,
+            'address'   => $model->address,
+            'city'      => $model->city,
+            'state'     => $model->state,
+            'zipcode'   => $model->zipcode,
 
             /* place your other model properties here */
 

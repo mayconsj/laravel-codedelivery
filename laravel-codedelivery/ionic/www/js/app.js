@@ -5,10 +5,12 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('starter.controllers', []);
 angular.module('starter.services', []);
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'angular-oauth2', 'ngResource', 'ngCordova'])
+angular.module('starter.filters', []);
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.filters',
+    'angular-oauth2', 'ngResource', 'ngCordova'])
 
     .constant('appConfig', {
-        baseUrl: 'http://172.28.204.68:8000'
+        baseUrl: 'http://10.0.0.5:8000'
     })
 
     .run(function ($ionicPlatform) {
@@ -49,7 +51,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 templateUrl: 'templates/login.html',
                 controller: 'LoginCtrl'
             })
-        $stateProvider
             .state('home', {
                 url: '/home',
                 templateUrl: 'templates/home.html',
@@ -57,33 +58,39 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
                 }
             })
-        $stateProvider
             .state('client', {
                 abstract: true,
                 url: '/client',
-                template: '<ion-nav-view/>',
+                templateUrl: 'templates/client/menu.html',
+                controller: 'ClientMenuCtrl'
             })
-        $stateProvider
+            .state('client.order', {
+                url: '/order',
+                templateUrl: 'templates/client/order.html',
+                controller: 'ClientOrderCtrl'
+            })
+            .state('client.view_order', {
+                url: '/view_order/:id',
+                templateUrl: 'templates/client/view_order.html',
+                controller: 'ClientViewOrderCtrl'
+            })
             .state('client.checkout', {
                 cache: false,
                 url: '/checkout',
                 templateUrl: 'templates/client/checkout.html',
                 controller: 'ClientCheckoutCtrl'
             })
-        $stateProvider
             .state('client.checkout_item_detail', {
                 url: '/checkout/detail/:index',
                 templateUrl: 'templates/client/checkout_item_detail.html',
                 controller: 'ClientCheckoutDetailCtrl'
             })
-        $stateProvider
             .state('client.checkout_successful', {
                 cache: false,
                 url: '/checkout/successful',
                 templateUrl: 'templates/client/checkout_successful.html',
                 controller: 'ClientCheckoutSuccessCtrl'
             })
-        $stateProvider
             .state('client.view_products', {
                 url: '/view_products',
                 templateUrl: 'templates/client/view_products.html',
