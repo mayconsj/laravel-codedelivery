@@ -10,7 +10,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     'angular-oauth2', 'ngResource', 'ngCordova'])
 
     .constant('appConfig', {
-        baseUrl: 'http://10.0.0.5:8000'
+        baseUrl: 'http://10.249.21.247:8000'
     })
 
     .run(function ($ionicPlatform) {
@@ -60,6 +60,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             })
             .state('client', {
                 abstract: true,
+                cache: false,
                 url: '/client',
                 templateUrl: 'templates/client/menu.html',
                 controller: 'ClientMenuCtrl'
