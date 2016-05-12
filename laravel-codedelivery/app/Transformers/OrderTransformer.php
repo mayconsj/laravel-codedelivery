@@ -40,7 +40,7 @@ class OrderTransformer extends TransformerAbstract
         foreach ($items as $item) {
             $names[] = $item->product->name;
         }
-        return names;
+        return $names;
     }
 
     //Many to One -> Cupom
