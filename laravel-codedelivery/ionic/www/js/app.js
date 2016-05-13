@@ -38,13 +38,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             clientId: 'appid01',
             clientSecret: 'secret', // optional
             grantPath: '/oauth/access_token'
-        })
+        });
         OAuthTokenProvider.configure({
             name: 'token',
             options: {
                 secure: false
             }
-        })
+        });
         $stateProvider
             .state('login', {
                 url: '/login',

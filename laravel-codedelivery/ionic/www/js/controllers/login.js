@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
     .controller('LoginCtrl', [
-        '$scope', 'OAuth', 'OAuthToken', '$ionicPopup', '$state', UserData, 'User',
+        '$scope', 'OAuth', 'OAuthToken', '$ionicPopup', '$state', 'UserData', 'User',
         function ($scope, OAuth, OAuthToken, $ionicPopup, $state, UserData, User) {
 
             $scope.user = {
@@ -9,13 +9,13 @@ angular.module('starter.controllers')
             };
 
             $scope.login = function () {
-                var promise = OAuth.getAccessToken($scope.user)
+                var promise = OAuth.getAccessToken($scope.user);
                 promise
                     .then(function (data) {
                         return User.authenticated({include: 'client'}).$promise;
                     })
                     .then(function (data) {
-                        UserData.set(data.data)
+                        UserData.set(data.data);
                         $state.go('client.checkout');
                     }, function (responseError) {
                         UserData.set(null);

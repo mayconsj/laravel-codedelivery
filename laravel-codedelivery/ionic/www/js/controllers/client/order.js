@@ -1,7 +1,7 @@
 angular.module('starter.controllers')
     .controller('ClientOrderCtrl', [
-        '$scope', '$state', '$ionicLoading', 'Order',
-        function ($scope, $state, $ionicLoading, Order) {
+        '$scope', '$state', '$ionicLoading', 'ClientOrder',
+        function ($scope, $state, $ionicLoading, ClientOrder) {
             $scope.item = [];
 
             $ionicLoading.show({
