@@ -4,6 +4,7 @@ namespace CodeDelivery\Http\Controllers\Api\Deliveryman;
 
 use CodeDelivery\Http\Controllers\Controller;
 use CodeDelivery\Http\Requests;
+use CodeDelivery\Models\Geo;
 use CodeDelivery\Repositories\OrderRepository;
 use CodeDelivery\Repositories\ProductRepository;
 use CodeDelivery\Repositories\UserRepository;
@@ -52,8 +53,8 @@ class DeliverymanCheckoutController extends Controller
         $orders = $this->repository->with($this->with)
             ->skipPresenter(false)
             ->scopeQuery(function ($query) use ($id) {
-            return $query->where('user_deliveryman_id', '=', $id);
-        })->paginate();
+                return $query->where('user_deliveryman_id', '=', $id);
+            })->paginate();
 
         return $orders;
     }
@@ -71,11 +72,20 @@ class DeliverymanCheckoutController extends Controller
     {
         $idDeliveryman = Authorizer::getResourceOwnerId();
         $order = $this->service->updateStatus($id, $idDeliveryman, $request->get('status'));
-        if($order){
+        if ($order) {
             return $this->repository->find($order->id);
         };
-        abort(400,"Order não encontrada");
+        abort(400, "Order não encontrada");
 
+    }
+
+    public function geo(Request $request, Geo $geo, $id)
+    {
+        $idDeliveryman = Authorizer::getResourceOwnerId();
+        $order = $this->repository->getByIdAndDeliveryman($id, $idDeliveryman);
+        $geo->lat = $request->get('lat');
+        $geo->long = $request->get('long');
+        return $geo;
     }
 
 
