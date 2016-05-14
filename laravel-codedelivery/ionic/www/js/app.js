@@ -10,7 +10,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     'angular-oauth2', 'ngResource', 'ngCordova'])
 
     .constant('appConfig', {
-        baseUrl: 'http://10.0.0.5:8000'
+        baseUrl: 'http://172.28.203.28:8000'
     })
 
     .run(function ($ionicPlatform) {
@@ -74,6 +74,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 url: '/view_order/:id',
                 templateUrl: 'templates/client/view_order.html',
                 controller: 'ClientViewOrderCtrl'
+            })
+            .state('client.view_delivery', {
+                cache: false,
+                url: '/view_delivery/:id',
+                templateUrl: 'templates/client/view_delivery.html',
+                controller: 'ClientViewDeliveryCtrl'
             })
             .state('client.checkout', {
                 cache: false,
