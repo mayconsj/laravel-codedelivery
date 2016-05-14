@@ -20,7 +20,8 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
 
     public function getByIdAndDeliveryman($id, $idDeliveryman)
     {
-        $result = $this->model->where('id', $id)
+        $result = $this->model
+            ->where('id', $id)
             ->where('user_deliveryman_id', $idDeliveryman)
             ->first();
         if ($result) {
