@@ -9,7 +9,7 @@ angular.module('starter.controllers')
                     latitude: -23.444,
                     longitude: -46.444
                 },
-                zoom: 12
+                zoom: 16
             };
 
             $scope.markers = [];
