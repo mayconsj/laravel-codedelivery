@@ -7,10 +7,10 @@ angular.module('starter.controllers', []);
 angular.module('starter.services', []);
 angular.module('starter.filters', []);
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.filters',
-    'angular-oauth2', 'ngResource', 'ngCordova'])
+    'angular-oauth2', 'ngResource', 'ngCordova', 'uiGmapgoogle-maps'])
 
     .constant('appConfig', {
-        baseUrl: 'http://172.28.203.28:8000'
+        baseUrl: 'http://10.0.0.16:8000'
     })
 
     .run(function ($ionicPlatform) {

@@ -14,7 +14,7 @@ angular.module('starter.services')
                     isArray: false
                 },
                 updateStatus: {
-                    method: 'PATH',
+                    method: 'PATCH',
                     url: url + '/update-status'
                 },
                 geo: {

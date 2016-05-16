@@ -23,9 +23,10 @@ class OrderTransformer extends TransformerAbstract
     public function transform(Order $model)
     {
         return [
-            'id' => (int)$model->id,
-            'total' => (float)$model->total,
+            'id'            => (int)$model->id,
+            'total'         => (float)$model->total,
             'product_names' => $this->getArrayProductNames($model->items),
+            'status'        => $model->status,
 
             /* place your other model properties here */
 
