@@ -35,7 +35,7 @@ angular.module('starter.controllers')
                     template: 'Carregando...'
                 });
                 if ($scope.cupom.value) {
-                    o.cupom_code = $scope.cupom_code;
+                    o.cupom_code = $scope.cupom.code;
                 }
                 ClientOrder.save({id: null}, o, function (data) {
                     $ionicLoading.hide();
