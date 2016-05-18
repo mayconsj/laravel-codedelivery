@@ -1,15 +1,15 @@
 angular.module('starter.controllers')
     .controller('ClientViewDeliveryCtrl', [
-        '$scope', '$stateParams', 'ClientOrder', '$ionicLoading', '$ionicPopup', 'UserData',
-        function ($scope, $stateParams, ClientOrder, $ionicLoading, $ionicPopup, UserData) {
-            var iconUrl = 'http://maps.google.com/mapfiles/kml/pal2/icon2.png';
+        '$scope', '$stateParams', 'ClientOrder', '$ionicLoading', '$ionicPopup', 'UserData', '$pusher', '$window',
+        function ($scope, $stateParams, ClientOrder, $ionicLoading, $ionicPopup, UserData, $pusher, $window) {
+            var iconUrl = 'http://maps.google.com/mapfiles/kml/pal2';
             $scope.order = {};
             $scope.map = {
                 center: {
                     latitude: -23.444,
                     longitude: -46.444
                 },
-                zoom: 16
+                zoom: 12
             };
 
             $scope.markers = [];
@@ -22,7 +22,7 @@ angular.module('starter.controllers')
                 $scope.order = data.data;
                 $ionicLoading.hide();
                 if (parseInt($scope.order.status, 10) == 1) {
-                    initMarkers();
+                    initMarkers($scope.order);
                 } else {
                     $ionicPopup.alert({
                         title: 'Advertência',
@@ -33,13 +33,14 @@ angular.module('starter.controllers')
                 $ionicLoading.hide();
             });
 
-            function initMarkers() {
+            function initMarkers(order) {
                 var client = UserData.get().client.data,
                     address = client.zipcode + ',' +
                         client.adrress + ', ' +
                         client.city + ' - ' +
                         client.state;
                 createMarkerClient(address);
+                watchPositionDelivery(order.hash);
             }
 
             function createMarkerClient(address) {
@@ -52,7 +53,7 @@ angular.module('starter.controllers')
                             long = results[0].geometry.location.lng();
 
                         $scope.markers.push({
-                            id : 'client',
+                            id: 'client',
                             coords: {
                                 latitude: lat,
                                 longitude: long
@@ -62,12 +63,20 @@ angular.module('starter.controllers')
                                 icon: iconUrl + '/icon2.png'
                             }
                         });
-                    }else{
+                    } else {
                         $ionicPopup.alert({
                             title: 'Advertência',
                             template: 'Não foi possivel localizar seu endereço'
                         });
                     }
+                });
+            }
+
+            function watchPositionDelivery(channel) {
+                var pusher = $pusher($window.client);
+                channel = pusher.subscribe(channel);
+                channel.bind('CodeDelivery\\Events\\GetLocationDeliveryman',function (data) {
+                    console.log(data);
                 });
             }
 
