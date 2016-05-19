@@ -10,7 +10,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     'angular-oauth2', 'ngResource', 'ngCordova', 'uiGmapgoogle-maps', 'pusher-angular'])
 
     .constant('appConfig', {
-        baseUrl: 'http://172.28.202.33:8000',
+        baseUrl: 'http://172.28.203.212:8000',
         pusherKey: '512080450a6a619278de'
     })
 

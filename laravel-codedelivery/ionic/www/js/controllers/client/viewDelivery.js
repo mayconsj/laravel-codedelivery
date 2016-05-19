@@ -33,6 +33,12 @@ angular.module('starter.controllers')
                 $ionicLoading.hide();
             });
 
+            $scope.$watch('markers.lenght', function (value) {
+               if (value == 2){
+                   createBounds();
+               }
+            });
+
             function initMarkers(order) {
                 var client = UserData.get().client.data,
                     address = client.zipcode + ',' +
@@ -75,9 +81,51 @@ angular.module('starter.controllers')
             function watchPositionDelivery(channel) {
                 var pusher = $pusher($window.client);
                 channel = pusher.subscribe(channel);
-                channel.bind('CodeDelivery\\Events\\GetLocationDeliveryman',function (data) {
-                    console.log(data);
+                channel.bind('CodeDelivery\\Events\\GetLocationDeliveryman', function (data) {
+                    //console.log(data);
+                    var lat = data.geo.lat, long = data.geo.long;
+
+                    if ($scope.markers.length == 1 && $scope.markers.length == 0) {
+                        $scope.markers.push({
+                            id: 'entregador',
+                            coords: {
+                                latitude: lat,
+                                longitude: long
+                            },
+                            options: {
+                                title: "Entregador",
+                                icon: iconUrl + '/icon47.png'
+                            }
+                        });
+                        return;
+                    }
+                    for (var key in $scope.markers) {
+                        if ($scope.markers[key].id == 'entregador') {
+                            $scope.markers[key].coords = {
+                                latitude: lat,
+                                longitude: long
+                            };
+                        }
+                    }
                 });
             }
 
+            function createBounds() {
+                var bounds = new google.maps.LatLngBounds(),
+                    latlng;
+                angular.forEach($scope.markers, function (value) {
+                    latlng = new google.maps.LatLng(Number(value.coords.latitude), Number(value.coords.longitude));
+                    bounds.extend(latlng);
+                });
+                $scope.map.bounds = {
+                    northeast: {
+                        latitude: bounds.getNorthEast().lat(),
+                        longitude: bounds.getNorthEast().lng()
+                    },
+                    southwest: {
+                        latitude: bounds.getSouthWest().lat(),
+                        longitude: bounds.getSouthWest().lng()
+                    }
+                };
+            }
         }]);
