@@ -1,16 +1,12 @@
 angular.module('starter.controllers')
     .controller('ClientViewDeliveryCtrl', [
-        '$scope', '$stateParams', 'ClientOrder', '$ionicLoading', '$ionicPopup', 'UserData', '$pusher', '$window',
-        function ($scope, $stateParams, ClientOrder, $ionicLoading, $ionicPopup, UserData, $pusher, $window) {
+        '$scope', '$stateParams', 'ClientOrder', '$ionicLoading',
+        '$ionicPopup', 'UserData', '$pusher', '$window', '$map', 'uiGmapGoogleMapApi',
+        function ($scope, $stateParams, ClientOrder, $ionicLoading,
+                  $ionicPopup, UserData, $pusher, $window, $map, uiGmapGoogleMapApi) {
             var iconUrl = 'http://maps.google.com/mapfiles/kml/pal2';
             $scope.order = {};
-            $scope.map = {
-                center: {
-                    latitude: -23.444,
-                    longitude: -46.444
-                },
-                zoom: 12
-            };
+            $scope.map = $map;
 
             $scope.markers = [];
 
@@ -18,9 +14,15 @@ angular.module('starter.controllers')
                 template: 'Carregando...'
             });
 
+            uiGmapGoogleMapApi.then(function (maps) {
+                $ionicLoading.hide();
+            },function (error) {
+                $ionicLoading.hide();
+            });
+
             ClientOrder.get({id: $stateParams.id, include: "items, cupom"}, function (data) {
                 $scope.order = data.data;
-                $ionicLoading.hide();
+
                 if (parseInt($scope.order.status, 10) == 1) {
                     initMarkers($scope.order);
                 } else {
@@ -29,14 +31,12 @@ angular.module('starter.controllers')
                         template: 'Pedido não está em status de entrega'
                     });
                 }
-            }, function (dataError) {
-                $ionicLoading.hide();
             });
 
             $scope.$watch('markers.lenght', function (value) {
-               if (value == 2){
-                   createBounds();
-               }
+                if (value == 2) {
+                    createBounds();
+                }
             });
 
             function initMarkers(order) {
@@ -128,4 +128,17 @@ angular.module('starter.controllers')
                     }
                 };
             }
-        }]);
+        }])
+    .controller('CvdControlDescentralize', ['$scope', '$map', function ($scope, $map) {
+        $scope.map = $map;
+        $scope.fit = function () {
+            $scope.map.fit = !$scope.map.fit;
+        }
+
+    }]).controller('CvdControlReload', ['$scope', '$window', '$timeout', function ($scope, $window, $timeout) {
+    $scope.reload = function () {
+        $timeout(function () {
+            $window.location.reload(true);
+        }, 100);
+    }
+}]);
