@@ -6,7 +6,7 @@
 angular.module('starter.controllers', []);
 angular.module('starter.services', []);
 angular.module('starter.filters', []);
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.filters',
+angular.module('starter', ['ionic','ionic.service.core', 'starter.controllers', 'starter.services', 'starter.filters',
     'angular-oauth2', 'ngResource', 'ngCordova', 'uiGmapgoogle-maps', 'pusher-angular'])
 
     .constant('appConfig', {
@@ -14,7 +14,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         pusherKey: '512080450a6a619278de'
     })
 
-    .run(function ($ionicPlatform, $window, appConfig) {
+    .run(function ($ionicPlatform, $window, appConfig,$localStorage) {
         $window.client = new Pusher(appConfig.pusherKey);
         $ionicPlatform.ready(function () {
             if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -30,6 +30,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             if (window.StatusBar) {
                 StatusBar.styleDefault();
             }
+            Ionic.io();
+            var push = new Ionic.Push({
+               debug: true,
+                onNotification: function (message) {
+                    console.log(message);
+                }
+            });
+            push.register(function (token) {
+                $localStorage.set('device_token', token.token);
+            })
         });
     })
 

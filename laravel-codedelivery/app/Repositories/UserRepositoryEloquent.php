@@ -2,12 +2,11 @@
 
 namespace CodeDelivery\Repositories;
 
-use CodeDelivery\Presenters\UserPresenter;
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use CodeDelivery\Repositories\UserRepository;
 use CodeDelivery\Models\User;
+use CodeDelivery\Presenters\UserPresenter;
 use CodeDelivery\Validators\UserValidator;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class UserRepositoryEloquent
@@ -16,6 +15,7 @@ use CodeDelivery\Validators\UserValidator;
 class UserRepositoryEloquent extends BaseRepository implements UserRepository
 {
     protected $skipPresenter = true;
+
     /**
      * Specify Model class name
      *
@@ -28,7 +28,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
 
     public function getDeliveryman()
     {
-        return $this->model->where(['role'=>'deliveryman'])->lists('name', 'id');
+        return $this->model->where(['role' => 'deliveryman'])->lists('name', 'id');
     }
 
     /**
@@ -42,5 +42,13 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     public function presenter()
     {
         return UserPresenter::class;
+    }
+
+    public function updateDeviceToken($id, $deviceToken)
+    {
+        $model = $this->model->find($id);
+        $model->device_token = $deviceToken;
+        $model->save();
+        return $this->parserResult($model);
     }
 }
