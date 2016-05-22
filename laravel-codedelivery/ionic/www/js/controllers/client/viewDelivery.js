@@ -42,7 +42,7 @@ angular.module('starter.controllers')
             function initMarkers(order) {
                 var client = UserData.get().client.data,
                     address = client.zipcode + ',' +
-                        client.adrress + ', ' +
+                        client.address + ', ' +
                         client.city + ' - ' +
                         client.state;
                 createMarkerClient(address);
