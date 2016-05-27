@@ -26,13 +26,7 @@
       "id": "phonegap-plugin-barcodescanner"
     },
     "cordova-plugin-geolocation",
-    {
-      "variables": {
-        "SENDER_ID": "123456"
-      },
-      "locator": "phonegap-plugin-push",
-      "id": "phonegap-plugin-push"
-    }
+    "phonegap-plugin-push@1.5.3"
   ],
   "cordovaPlatforms": [
     "android"
