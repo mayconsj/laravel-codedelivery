@@ -85,7 +85,7 @@ angular.module('starter.controllers')
                     //console.log(data);
                     var lat = data.geo.lat, long = data.geo.long;
 
-                    if ($scope.markers.length == 1 && $scope.markers.length == 0) {
+                    if ($scope.markers.length == 1 || $scope.markers.length == 0) {
                         $scope.markers.push({
                             id: 'entregador',
                             coords: {
